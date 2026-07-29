@@ -205,3 +205,10 @@ func (b *Book) Snapshot() []Order {
 	}
 	return out
 }
+
+// Rest places an order without matching it.
+//
+// Used only to rebuild a book that a host chain persisted: those orders are the
+// result of matching, so running them through Submit would match them against
+// each other and invent fills that never happened.
+func (b *Book) Rest(o Order) { b.rest(o) }

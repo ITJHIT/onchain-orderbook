@@ -50,6 +50,9 @@ type TxResult struct {
 	Err      error
 	OrderID  orderbook.OrderID
 	Filled   orderbook.Qty
+	// Fills is populated by ApplyPositioned; the block-level API collects fills
+	// into BlockResult instead.
+	Fills []orderbook.Fill
 }
 
 // BlockResult is the full, deterministic outcome of applying one block.
