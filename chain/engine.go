@@ -1,6 +1,6 @@
 package chain
 
-import "onchain-orderbook/orderbook"
+import "github.com/ITJHIT/onchain-orderbook/orderbook"
 
 // Mode selects how a block's orders are matched.
 type Mode uint8

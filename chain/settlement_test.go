@@ -3,7 +3,7 @@ package chain
 import (
 	"testing"
 
-	"onchain-orderbook/orderbook"
+	"github.com/ITJHIT/onchain-orderbook/orderbook"
 )
 
 // Settlement is where a rounding slip becomes a missing coin. These check the

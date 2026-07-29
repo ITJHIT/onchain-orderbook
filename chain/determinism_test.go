@@ -5,7 +5,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"onchain-orderbook/orderbook"
+	"github.com/ITJHIT/onchain-orderbook/orderbook"
 )
 
 // The claim this whole repository makes is that the state transition is
