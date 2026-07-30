@@ -1,6 +1,16 @@
 # onchain-orderbook
 
+[![CI](https://github.com/ITJHIT/onchain-orderbook/actions/workflows/ci.yml/badge.svg)](https://github.com/ITJHIT/onchain-orderbook/actions/workflows/ci.yml)
+[![Go](https://img.shields.io/badge/Go-1.26-00ADD8?logo=go&logoColor=white)](go.mod)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 **A limit order book that can run inside consensus — and a harness that proves it.**
+
+The matching/settlement engine at the center of [`l1chain_JIHO`](https://github.com/ITJHIT/l1chain_JIHO)'s
+on-chain exchange, and the consensus-facing counterpart to
+[`lowlat-oms-core`](https://github.com/ITJHIT/lowlat-oms-core)'s off-chain OMS: same
+price-time-priority matching discipline, opposite constraint — this one has to
+agree byte-for-byte across every validator, not just be fast on one machine.
 
 An off-chain book only has to be fast. A book that lives *in consensus* has to be
 fast **and** produce byte-identical results on every validator from the same
@@ -109,9 +119,14 @@ No dependencies outside the standard library.
 ## Status
 
 The matching, auction, settlement and commitment layers are complete and tested.
-Integration with a specific chain's state machine is the next step; the engine is
-deliberately a pure `ApplyBlock(height, txs) -> (fills, root)` function so that
-it can be driven by any consensus layer.
+The engine is deliberately a pure `ApplyBlock(height, txs) -> (fills, root)`
+function so it can be driven by any consensus layer — and it now is: it is
+wired into [`l1chain_JIHO`](https://github.com/ITJHIT/l1chain_JIHO)'s state
+transition as `exchange/`, reachable through ordinary signed transactions in
+either matching mode, with its own storage folded into that chain's state
+root. See `l1chain_JIHO`'s [On-chain exchange](https://github.com/ITJHIT/l1chain_JIHO#on-chain-exchange)
+section for how the seam works, including a real bug the integration surfaced
+(order-ID collisions across blocks) and the regression test that catches it.
 
 ## License
 
